@@ -35,36 +35,84 @@ t_image		gray_image(t_image image)
 	return (gray_image);
 }
 
+void		get_stored_image_path(char image_path[])
+{
+	FILE	*fptr = NULL;
+
+	fptr = fopen("path.brk", "r");
+	if (fptr != NULL)
+	{
+		fscanf(fptr, "%s", image_path);
+		fclose(fptr);
+	}
+}
+
+void		store_image_path(char image_path[])
+{
+	FILE *fptr = NULL;
+
+	fptr = fopen("path.brk", "w");
+	if (fptr != NULL)
+	{
+		for (int i = 0; image_path[i]; i++)
+		{
+			fprintf(fptr, "%c", image_path[i]);
+		}
+		fprintf(fptr, "%c", '\n');
+		fclose(fptr);
+	}
+}
+
 int			main(int argc, char *argv[])
 {
-	char	image_path[261]; // 260 (max path size) + 1 (\0)
+	char	*image_path;
+	char	*use_stored_path;
 	t_image image;
 
-	if (argc == 2)
-	{
-		for (int i = 0; argv[1][i]; i++)
-		{
-			image_path[i] = argv[1][i];
-			image_path[i + 1] = '\0';
-		}
-	}
-	else
-	{
-		printf("Enter image path:");
-		fgets(image_path, 260, stdin);
-	}
-
+	use_stored_path = (char *)malloc(3 * sizeof(char));
+	image_path = (char *)malloc(261 * sizeof(char)); // 260 (max path size) + 1 (\0)
+	image_path[0] = '\0';
+	get_stored_image_path(image_path);
 
 	if (image_path[0])
 	{
-		strtok(image_path, "\n"); // Removes \n from user input (enter)
+		printf("Use stored path? [y/n]: ");
+		fgets(use_stored_path, 3, stdin);
+	}
 
+	if (use_stored_path[0] == 'n' || !image_path[0])
+	{
+		if (argc == 2)
+		{
+			for (int i = 0; argv[1][i]; i++)
+			{
+				image_path[i] = argv[1][i];
+				image_path[i + 1] = '\0';
+			}
+		}
+		else
+		{
+			printf("Enter image path: ");
+			fgets(image_path, 261, stdin);
+			strtok(image_path, "\n"); // Removes \n from user input (enter)
+		}
+	}
+
+	if (image_path[0])
+	{
 		image.img = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
 		if (image.img != NULL)
 		{
-			printf("Image loaded with success.\n");
+			printf("\nImage loaded with success.\n\n");
+			store_image_path(image_path);
+
+			printf("Updating image channels...\n");
 			image = gray_image(image);
+			printf("Image channels updated.\n\n");
+
+			printf("Saving image...\n");
 			stbi_write_jpg("gray.jpg", image.width, image.height, image.channels, image.img, 100);
+			printf("Image saved.\n\n");
 		}
 		else
 		{
