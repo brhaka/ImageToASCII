@@ -7,6 +7,8 @@
 #include "stb/stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb/stb_image_resize.h"
 
 t_image		gray_image(t_image image)
 {
@@ -35,22 +37,35 @@ t_image		gray_image(t_image image)
 	return (gray_image);
 }
 
+t_image		resize_image(t_image image, int downsample_factor)
+{
+	t_image	new_image;
+
+	new_image.width = (image.width / downsample_factor);
+	new_image.height = (image.height / downsample_factor);
+	new_image.channels = image.channels;
+	new_image.img = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
+	stbir_resize_uint8(image.img, image.width, image.height, 0, new_image.img, new_image.width, new_image.height, 0, image.channels);
+	return (new_image);
+}
+
 void		convert_to_ascii(t_image image)
 {
 	FILE	*fptr = NULL;
+	int		char_index;
 	char	map[10] = " .,:;ox%#@";
 
 	fptr = fopen("ascii.txt", "w");
 	if (fptr != NULL)
 	{
-		//ascii = (char *)malloc((image.width * image.height) * sizeof(char));
 		for (int y = 0; y < image.height; y++)
 		{
 			for (int x = 0; x < image.width; x++)
 			{
-				//*ascii = map[(int)(*(image.img + (x + y)) / (255 / 10))]; // 10 = map length
-				//ascii++;
-				fprintf(fptr, "%c", map[(int)(*(image.img) / (255 / 10))]);
+				char_index = (int)(*(image.img) / (255 / 10));
+				char_index > 9 ? char_index = 9 : 1;
+				char_index < 0 ? char_index = 0 : 1;
+				fprintf(fptr, "%c", map[char_index]);
 				*image.img++;
 			}
 			fprintf(fptr, "%c", '\n');
@@ -129,6 +144,10 @@ int			main(int argc, char *argv[])
 		{
 			printf("\nImage loaded with success.\n\n");
 			store_image_path(image_path);
+
+			printf("Resizing image...\n");
+			image = resize_image(image, 10);
+			printf("Image successfully resized.\n\n");
 
 			printf("Updating image channels...\n");
 			image = gray_image(image);
