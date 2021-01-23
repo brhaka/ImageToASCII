@@ -13,7 +13,7 @@ t_image		gray_image(t_image image)
 	t_image gray_image = image;
 
 	size_t img_size = image.width * image.height * image.channels;
-	gray_image.channels = image.channels == 4 ? 2 : 1;
+	gray_image.channels = image.channels == 4 ? 2 : 1; // 2 channel is alpha on 4 channel images
 	size_t gray_img_size = image.width * image.height * gray_image.channels;
 
 	gray_image.img = malloc(gray_img_size);
@@ -33,6 +33,30 @@ t_image		gray_image(t_image image)
 	}
 
 	return (gray_image);
+}
+
+void		convert_to_ascii(t_image image)
+{
+	FILE	*fptr = NULL;
+	char	map[10] = " .,:;ox%#@";
+
+	fptr = fopen("ascii.txt", "w");
+	if (fptr != NULL)
+	{
+		//ascii = (char *)malloc((image.width * image.height) * sizeof(char));
+		for (int y = 0; y < image.height; y++)
+		{
+			for (int x = 0; x < image.width; x++)
+			{
+				//*ascii = map[(int)(*(image.img + (x + y)) / (255 / 10))]; // 10 = map length
+				//ascii++;
+				fprintf(fptr, "%c", map[(int)(*(image.img) / (255 / 10))]);
+				*image.img++;
+			}
+			fprintf(fptr, "%c", '\n');
+		}
+		fclose(fptr);
+	}
 }
 
 void		get_stored_image_path(char image_path[])
@@ -110,9 +134,13 @@ int			main(int argc, char *argv[])
 			image = gray_image(image);
 			printf("Image channels updated.\n\n");
 
-			printf("Saving image...\n");
-			stbi_write_jpg("gray.jpg", image.width, image.height, image.channels, image.img, 100);
-			printf("Image saved.\n\n");
+			printf("Converting image to ASCII...\n");
+			convert_to_ascii(image);
+			printf("Image successfully convert to ASCII.\n\n");
+
+			// printf("Saving image...\n");
+			// stbi_write_jpg("gray.jpg", image.width, image.height, image.channels, image.img, 100);
+			// printf("Image saved.\n\n");
 		}
 		else
 		{
