@@ -17,7 +17,7 @@ t_image		gray_image(t_image image)
 	t_image gray_image = image;
 
 	size_t img_size = image.width * image.height * image.channels;
-	gray_image.channels = image.channels == 4 ? 2 : 1; // 2 channel is alpha on 4 channel images
+	gray_image.channels = image.channels == 4 ? 2 : 1;
 	size_t gray_img_size = image.width * image.height * gray_image.channels;
 
 	gray_image.img = malloc(gray_img_size);
@@ -27,9 +27,9 @@ t_image		gray_image(t_image image)
 		return (image);
 	}
 
-	for (unsigned char *p = image.img, *pg = gray_image.img; p != image.img + img_size; p += image.channels, pg += gray_image.channels) // P = pixel, PG = pixel gray
+	for (unsigned char *p = image.img, *pg = gray_image.img; p != image.img + img_size; p += image.channels, pg += gray_image.channels)
 	{
-		*pg = (uint8_t)((*p + *(p + 1) + *(p + 2)) / 3); // P = red, P + 1 = green, P + 2 = blue
+		*pg = (uint8_t)((*p + *(p + 1) + *(p + 2)) / 3);
 		if (image.channels == 4)
 		{
 			*(pg + 1) = *(p + 3);
@@ -56,9 +56,7 @@ void		convert_to_ascii(t_image image)
 {
 	FILE	*fptr = NULL;
 	int		char_index;
-	char	map[10] = " .,:;ox%#@";
-	//char	map[10] = "@#%xo;:,. ";
-	//char	map[10] = "＠＃％ｘｏ；：，． "; // Unicode mono spaced
+	char	map[10] = "@#%xo;:,. ";
 	int		percentage;
 
 	fptr = fopen("ascii.txt", "w");
