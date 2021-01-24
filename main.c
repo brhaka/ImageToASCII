@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
 
 #include "image_reader.h"
@@ -111,7 +112,38 @@ void		store_image_path(char image_path[])
 	}
 }
 
+char		*handle_user_input(char *message, char *possible_inputs, int size)
+{
+	char	*input;
+	bool	valid_input;
 
+	input = (char *)malloc(size * sizeof(char));
+
+	printf("%s", message);
+	fgets(input, size, stdin);
+
+	valid_input = false;
+	for (int i = 0; input[i]; i++)
+	{
+		for (int j = 0; possible_inputs[j]; j++)
+		{
+			if (input[i] == possible_inputs[j])
+			{
+				valid_input = true;
+			}
+		}
+	}
+
+	if (valid_input == true)
+	{
+		return (input);
+	}
+	else
+	{
+		printf("Invalid input.\n");
+		return (handle_user_input(message, possible_inputs, size));
+	}
+}
 
 int			main(int argc, char *argv[])
 {
@@ -122,31 +154,32 @@ int			main(int argc, char *argv[])
 
 	resize_factor = (char *)malloc(12 * sizeof(char));
 	use_stored_path = (char *)malloc(3 * sizeof(char));
-	image_path = (char *)malloc(261 * sizeof(char)); // 260 (max path size) + 1 (\0)
+	image_path = (char *)malloc(261 * sizeof(char));
 	image_path[0] = '\0';
-	get_stored_image_path(image_path);
 
-	if (image_path[0])
+	if (argc == 2)
 	{
-		printf("Use stored path? [y/n]: ");
-		fgets(use_stored_path, 3, stdin);
-	}
-
-	if (use_stored_path[0] == 'n' || !image_path[0])
-	{
-		if (argc == 2)
+		for (int i = 0; argv[1][i]; i++)
 		{
-			for (int i = 0; argv[1][i]; i++)
-			{
-				image_path[i] = argv[1][i];
-				image_path[i + 1] = '\0';
-			}
+			image_path[i] = argv[1][i];
+			image_path[i + 1] = '\0';
 		}
-		else
+	}
+	else
+	{
+		get_stored_image_path(image_path);
+
+		if (image_path[0])
+		{
+			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[2]){'y', 'n'}, 3);
+			strtok(use_stored_path, "\n");
+		}
+
+		if (use_stored_path[0] == 'n' || !image_path[0])
 		{
 			printf("Enter image path: ");
 			fgets(image_path, 261, stdin);
-			strtok(image_path, "\n"); // Removes \n from user input (enter)
+			strtok(image_path, "\n");
 		}
 	}
 
@@ -158,8 +191,7 @@ int			main(int argc, char *argv[])
 			printf("\nImage loaded with success.\n\n");
 			store_image_path(image_path);
 
-			printf("Enter image resize factor: ");
-			fgets(resize_factor, 12, stdin);
+			resize_factor = handle_user_input("Enter image resize factor: ", (char[10]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}, 12);
 			strtok(resize_factor, "\n");
 
 			printf("\n\nPreparing image...\n");
@@ -169,7 +201,7 @@ int			main(int argc, char *argv[])
 
 			printf("Converting image to ASCII...\n");
 			convert_to_ascii(image);
-			printf("Image successfully convert to ASCII.\n\n");
+			printf("Image successfully converted to ASCII.\n\n");
 		}
 		else
 		{
