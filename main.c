@@ -43,7 +43,7 @@ t_image		resize_image(t_image image, int resize_factor)
 {
 	t_image	new_image;
 
-	resize_factor <= 0 ? resize_factor = 10 : 1;
+	resize_factor <= 0 ? resize_factor = 1 : 1;
 	new_image.width = (image.width / resize_factor);
 	new_image.height = (image.height / resize_factor);
 	new_image.channels = image.channels;
@@ -57,6 +57,8 @@ void		convert_to_ascii(t_image image)
 	FILE	*fptr = NULL;
 	int		char_index;
 	char	map[10] = " .,:;ox%#@";
+	//char	map[10] = "@#%xo;:,. ";
+	//char	map[10] = "＠＃％ｘｏ；：，． "; // Unicode mono spaced
 	int		percentage;
 
 	fptr = fopen("ascii.txt", "w");
@@ -136,12 +138,34 @@ char		*handle_user_input(char *message, char *possible_inputs, int size)
 
 	if (valid_input == true)
 	{
+		strtok(input, "\n");
 		return (input);
 	}
 	else
 	{
 		printf("Invalid input.\n");
 		return (handle_user_input(message, possible_inputs, size));
+	}
+}
+
+char		*handle_int_user_input(char *message, int min, int max, int size)
+{
+	char *input;
+
+	input = handle_user_input(message, (char[10]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}, size);
+	if (atoi(input) > max)
+	{
+		printf("Invalid input.\n");
+		return (handle_int_user_input(message, min, max, size));
+	}
+	else if (atoi(input) < min)
+	{
+		printf("Invalid input.\n");
+		return (handle_int_user_input(message, min, max, size));
+	}
+	else
+	{
+		return (input);
 	}
 }
 
@@ -172,7 +196,6 @@ int			main(int argc, char *argv[])
 		if (image_path[0])
 		{
 			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[2]){'y', 'n'}, 3);
-			strtok(use_stored_path, "\n");
 		}
 
 		if (use_stored_path[0] == 'n' || !image_path[0])
@@ -191,8 +214,7 @@ int			main(int argc, char *argv[])
 			printf("\nImage loaded with success.\n\n");
 			store_image_path(image_path);
 
-			resize_factor = handle_user_input("Enter image resize factor: ", (char[10]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}, 12);
-			strtok(resize_factor, "\n");
+			resize_factor = handle_int_user_input("Enter image resize factor: [1 - 10] ", 1, 10, 12);
 
 			printf("\n\nPreparing image...\n");
 			image = resize_image(image, atoi(resize_factor));
