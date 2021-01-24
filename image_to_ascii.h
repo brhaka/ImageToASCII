@@ -3,7 +3,7 @@
 
 typedef struct	s_image
 {
-	unsigned char	*img;
+	unsigned char	*data;
 	int				width;
 	int				height;
 	int				channels;

@@ -20,14 +20,14 @@ t_image		gray_image(t_image image)
 	gray_image.channels = image.channels == 4 ? 2 : 1;
 	size_t gray_img_size = image.width * image.height * gray_image.channels;
 
-	gray_image.img = malloc(gray_img_size);
-	if (gray_image.img == NULL)
+	gray_image.data = malloc(gray_img_size);
+	if (gray_image.data == NULL)
 	{
 		printf("Unable to allocate memory for gray image.\n");
 		return (image);
 	}
 
-	for (unsigned char *p = image.img, *pg = gray_image.img; p != image.img + img_size; p += image.channels, pg += gray_image.channels)
+	for (unsigned char *p = image.data, *pg = gray_image.data; p != image.data + img_size; p += image.channels, pg += gray_image.channels)
 	{
 		*pg = (uint8_t)((*p + *(p + 1) + *(p + 2)) / 3);
 		if (image.channels == 4)
@@ -35,7 +35,7 @@ t_image		gray_image(t_image image)
 			*(pg + 1) = *(p + 3);
 		}
 	}
-
+	stbi_image_free(image.data);
 	return (gray_image);
 }
 
@@ -47,8 +47,10 @@ t_image		resize_image(t_image image, int resize_factor)
 	new_image.width = (image.width / resize_factor);
 	new_image.height = (image.height / resize_factor);
 	new_image.channels = image.channels;
-	new_image.img = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
-	stbir_resize_uint8(image.img, image.width, image.height, 0, new_image.img, new_image.width, new_image.height, 0, image.channels);
+	new_image.data = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
+	stbir_resize_uint8(image.data, image.width, image.height, 0, new_image.data, new_image.width, new_image.height, 0, image.channels);
+
+	stbi_image_free(image.data);
 	return (new_image);
 }
 
@@ -66,11 +68,11 @@ void		convert_to_ascii(t_image image)
 		{
 			for (int x = 0; x < image.width; x++)
 			{
-				char_index = (int)(*(image.img) / (255 / 10));
+				char_index = (int)(*(image.data) / (255 / 10));
 				char_index > 9 ? char_index = 9 : 1;
 				char_index < 0 ? char_index = 0 : 1;
 				fprintf(fptr, "%c", map[char_index]);
-				image.img++;
+				image.data++;
 			}
 			fprintf(fptr, "%c", '\n');
 			percentage = round((y + 1) / (image.height / 100));
@@ -148,15 +150,17 @@ char		*handle_user_input(char *message, char *possible_inputs, int size)
 
 char		*handle_int_user_input(char *message, int min, int max, int size)
 {
-	char *input;
+	char	*input;
+	int		input_int;
 
 	input = handle_user_input(message, (char[10]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}, size);
-	if (atoi(input) > max)
+	input_int = atoi(input);
+	if (input_int > max)
 	{
 		printf("Invalid input.\n");
 		return (handle_int_user_input(message, min, max, size));
 	}
-	else if (atoi(input) < min)
+	else if (input_int < min)
 	{
 		printf("Invalid input.\n");
 		return (handle_int_user_input(message, min, max, size));
@@ -206,8 +210,8 @@ int			main(int argc, char *argv[])
 
 	if (image_path[0])
 	{
-		image.img = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
-		if (image.img != NULL)
+		image.data = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
+		if (image.data != NULL)
 		{
 			printf("\nImage loaded with success.\n\n");
 			store_image_path(image_path);
@@ -228,13 +232,15 @@ int			main(int argc, char *argv[])
 			printf("Could not open specified image.\n");
 		}
 
-		stbi_image_free(image.img);
+		stbi_image_free(image.data);
 	}
 	else
 	{
 		printf("Invalid path.\n");
-		return (0);
 	}
 
+	free(resize_factor);
+	free(use_stored_path);
+	free(image_path);
 	return (0);
 }
