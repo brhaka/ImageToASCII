@@ -1,5 +1,6 @@
 .vscode
 main
+a.out
 image_to_ascii
 ascii.txt
 path.brk
