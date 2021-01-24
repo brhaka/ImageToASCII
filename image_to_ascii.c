@@ -68,7 +68,6 @@ void		convert_to_ascii(t_image image)
 	FILE	*fptr = NULL;
 	int		char_index;
 	char	map[10] = "@#%xo;:,. ";
-	//char	map[15] = "@#%$|xo;:=»«,. ";
 	int		percentage;
 
 	fptr = fopen("ascii.txt", "w");
@@ -81,7 +80,7 @@ void		convert_to_ascii(t_image image)
 				char_index = (int)(*(image.data) / (255 / (sizeof(map) / sizeof(map[0]))));
 				char_index > 9 ? char_index = 9 : 1;
 				char_index < 0 ? char_index = 0 : 1;
-				fprintf(fptr, "%c", map[char_index]);
+				fprintf(fptr, "%c ", map[char_index]);
 				image.data++;
 			}
 			fprintf(fptr, "%c", '\n');
@@ -272,7 +271,7 @@ int			main(int argc, char *argv[])
 				free(store_path);
 			}
 
-			resize_factor = handle_int_user_input("Enter image resize factor: [1 - 10] ", 1, 10, 12);
+			resize_factor = handle_int_user_input("Enter image resize factor: [1 - 50] ", 1, 50, 12);
 
 			printf("\n\nPreparing image...\n");
 			printf("\r[ %d%% ]", 0);
