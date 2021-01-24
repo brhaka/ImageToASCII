@@ -5,4 +5,5 @@ image_to_ascii
 ascii.txt
 path.brk
 *.jpg
+*.jpeg
 *.png
