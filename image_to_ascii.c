@@ -29,7 +29,7 @@ t_image		gray_image(t_image image)
 
 	for (unsigned char *p = image.data, *pg = gray_image.data; p != image.data + img_size; p += image.channels, pg += gray_image.channels)
 	{
-		*pg = (uint8_t)((*p + *(p + 1) + *(p + 2)) / 3);
+		*pg = (uint8_t)((*p + *(p + 1) + *(p + 2)) / 3.0);
 		if (image.channels == 4)
 		{
 			*(pg + 1) = *(p + 3);
@@ -82,7 +82,7 @@ void		convert_to_ascii(t_image image)
 				image.data++;
 			}
 			fprintf(fptr, "%c", '\n');
-			percentage = round((y + 1) / (image.height / 100));
+			percentage = round((y + 1) / (image.height / 100.0));
 			percentage < 0 ? percentage = 0 : 1;
 			percentage > 100 ? percentage = 100 : 1;
 			printf("\r[ %d%% ]", percentage);
