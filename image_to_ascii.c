@@ -36,6 +36,7 @@ t_image		gray_image(t_image image)
 		}
 	}
 	stbi_image_free(image.data);
+
 	return (gray_image);
 }
 
@@ -47,8 +48,8 @@ t_image		resize_image(t_image image, int resize_factor)
 	new_image.width = (image.width / resize_factor);
 	new_image.height = (image.height / resize_factor);
 	new_image.channels = image.channels;
-	new_image.data = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
 
+	new_image.data = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
 	if (new_image.data == NULL)
 	{
 		printf("\n--An error occurred--\n");
@@ -58,6 +59,7 @@ t_image		resize_image(t_image image, int resize_factor)
 	stbir_resize_uint8(image.data, image.width, image.height, 0, new_image.data, new_image.width, new_image.height, 0, image.channels);
 
 	stbi_image_free(image.data);
+
 	return (new_image);
 }
 
@@ -66,6 +68,7 @@ void		convert_to_ascii(t_image image)
 	FILE	*fptr = NULL;
 	int		char_index;
 	char	map[10] = "@#%xo;:,. ";
+	//char	map[15] = "@#%$|xo;:=»«,. ";
 	int		percentage;
 
 	fptr = fopen("ascii.txt", "w");
@@ -75,7 +78,7 @@ void		convert_to_ascii(t_image image)
 		{
 			for (int x = 0; x < image.width; x++)
 			{
-				char_index = (int)(*(image.data) / (255 / 10));
+				char_index = (int)(*(image.data) / (255 / (sizeof(map) / sizeof(map[0]))));
 				char_index > 9 ? char_index = 9 : 1;
 				char_index < 0 ? char_index = 0 : 1;
 				fprintf(fptr, "%c", map[char_index]);
@@ -93,9 +96,9 @@ void		convert_to_ascii(t_image image)
 	}
 }
 
-void		get_stored_image_path(char image_path[])
+void		get_stored_image_path(char *image_path)
 {
-	FILE	*fptr = NULL;
+	FILE *fptr = NULL;
 
 	fptr = fopen("path.brk", "r");
 	if (fptr != NULL)
@@ -105,7 +108,7 @@ void		get_stored_image_path(char image_path[])
 	}
 }
 
-void		store_image_path(char image_path[])
+void		store_image_path(char *image_path)
 {
 	FILE *fptr = NULL;
 
@@ -127,7 +130,6 @@ char		*handle_user_input(char *message, char *possible_inputs, int size, bool ch
 	bool	valid_input;
 
 	input = (char *)malloc(size * sizeof(char));
-
 	if (input == NULL)
 	{
 		printf("\n--An error occurred--\n");
@@ -211,35 +213,46 @@ int			main(int argc, char *argv[])
 	use_strd_path_allctd = false;
 	image_path_ready = false;
 
-	if (image_path == NULL)
-	{
-		printf("\n--An error occurred--\n");
-		return (0);
-	}
-
 	if (argc == 2)
 	{
 		image_path = (char *)malloc(261 * sizeof(char));
+		if (image_path == NULL)
+		{
+			printf("\n--An error occurred--\n");
+			return (0);
+		}
+
 		for (int i = 0; argv[1][i]; i++)
 		{
 			image_path[i] = argv[1][i];
 			image_path[i + 1] = '\0';
 		}
+
 		image_path_ready = true;
 	}
 	else
 	{
+		image_path = (char *)malloc(261 * sizeof(char));
+		if (image_path == NULL)
+		{
+			printf("\n--An error occurred--\n");
+			return (0);
+		}
+		image_path[0] = '\0';
+
 		get_stored_image_path(image_path);
 
-		if (image_path_ready == true)
+		if (image_path[0])
 		{
+			image_path_ready = true;
+
 			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
 			use_strd_path_allctd = true;
-			printf("\n\n");
 		}
 
-		if ((image_path_ready == true && use_stored_path[0] == 'n') || image_path_ready == false)
+		if (use_stored_path[0] == 'n' || image_path_ready == false)
 		{
+			use_strd_path_allctd == true ? printf("\n\n") : 1;
 			image_path = handle_user_input("Enter image path: ", "", 261, false);
 			image_path_ready = true;
 		}
@@ -251,7 +264,7 @@ int			main(int argc, char *argv[])
 		if (image.data != NULL)
 		{
 			printf("\n\nImage loaded with success.\n\n\n");
-			if (use_strd_path_allctd == true && use_stored_path[0] == 'n')
+			if (use_strd_path_allctd == false || (use_strd_path_allctd == true && use_stored_path[0] != 'y'))
 			{
 				store_path = handle_user_input("Store path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
 				store_path[0] == 'y' ? store_image_path(image_path) : 1;
@@ -288,5 +301,6 @@ int			main(int argc, char *argv[])
 
 	use_strd_path_allctd == true ? free(use_stored_path) : 1;
 	image_path_ready == true ? free(image_path) : 1;
+
 	return (0);
 }
