@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "image_reader.h"
 
@@ -37,12 +38,13 @@ t_image		gray_image(t_image image)
 	return (gray_image);
 }
 
-t_image		resize_image(t_image image, int downsample_factor)
+t_image		resize_image(t_image image, int resize_factor)
 {
 	t_image	new_image;
 
-	new_image.width = (image.width / downsample_factor);
-	new_image.height = (image.height / downsample_factor);
+	resize_factor <= 0 ? resize_factor = 10 : 1;
+	new_image.width = (image.width / resize_factor);
+	new_image.height = (image.height / resize_factor);
 	new_image.channels = image.channels;
 	new_image.img = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
 	stbir_resize_uint8(image.img, image.width, image.height, 0, new_image.img, new_image.width, new_image.height, 0, image.channels);
@@ -54,6 +56,7 @@ void		convert_to_ascii(t_image image)
 	FILE	*fptr = NULL;
 	int		char_index;
 	char	map[10] = " .,:;ox%#@";
+	int		percentage;
 
 	fptr = fopen("ascii.txt", "w");
 	if (fptr != NULL)
@@ -69,7 +72,13 @@ void		convert_to_ascii(t_image image)
 				*image.img++;
 			}
 			fprintf(fptr, "%c", '\n');
+			percentage = round((y + 1) / (image.height / 100));
+			percentage < 0 ? percentage = 0 : 1;
+			percentage > 100 ? percentage = 100 : 1;
+			printf("\r[ %d%% ]", percentage);
+			fflush(stdout);
 		}
+		printf("\n");
 		fclose(fptr);
 	}
 }
@@ -102,12 +111,16 @@ void		store_image_path(char image_path[])
 	}
 }
 
+
+
 int			main(int argc, char *argv[])
 {
 	char	*image_path;
 	char	*use_stored_path;
+	char	*resize_factor;
 	t_image image;
 
+	resize_factor = (char *)malloc(12 * sizeof(char));
 	use_stored_path = (char *)malloc(3 * sizeof(char));
 	image_path = (char *)malloc(261 * sizeof(char)); // 260 (max path size) + 1 (\0)
 	image_path[0] = '\0';
@@ -145,21 +158,18 @@ int			main(int argc, char *argv[])
 			printf("\nImage loaded with success.\n\n");
 			store_image_path(image_path);
 
-			printf("Resizing image...\n");
-			image = resize_image(image, 10);
-			printf("Image successfully resized.\n\n");
+			printf("Enter image resize factor: ");
+			fgets(resize_factor, 12, stdin);
+			strtok(resize_factor, "\n");
 
-			printf("Updating image channels...\n");
+			printf("\n\nPreparing image...\n");
+			image = resize_image(image, atoi(resize_factor));
 			image = gray_image(image);
-			printf("Image channels updated.\n\n");
+			printf("Image ready.\n\n");
 
 			printf("Converting image to ASCII...\n");
 			convert_to_ascii(image);
 			printf("Image successfully convert to ASCII.\n\n");
-
-			// printf("Saving image...\n");
-			// stbi_write_jpg("gray.jpg", image.width, image.height, image.channels, image.img, 100);
-			// printf("Image saved.\n\n");
 		}
 		else
 		{
