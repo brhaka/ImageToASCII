@@ -121,7 +121,7 @@ void		store_image_path(char image_path[])
 	}
 }
 
-char		*handle_user_input(char *message, char *possible_inputs, int size)
+char		*handle_user_input(char *message, char *possible_inputs, int size, bool check_input)
 {
 	char	*input;
 	bool	valid_input;
@@ -136,29 +136,42 @@ char		*handle_user_input(char *message, char *possible_inputs, int size)
 
 	printf("%s", message);
 	fgets(input, size, stdin);
-
-	valid_input = false;
-	for (int i = 0; input[i]; i++)
+	if (input[0] == '\n')
 	{
-		for (int j = 0; possible_inputs[j]; j++)
+		printf("\n--Invalid input--\n");
+		free(input);
+		return (handle_user_input(message, possible_inputs, size, check_input));
+	}
+	strtok(input, "\n");
+
+	if (check_input == true)
+	{
+		valid_input = false;
+		for (int i = 0; input[i]; i++)
 		{
-			if (input[i] == possible_inputs[j])
+			for (int j = 0; possible_inputs[j]; j++)
 			{
-				valid_input = true;
+				if (input[i] == possible_inputs[j])
+				{
+					valid_input = true;
+				}
 			}
 		}
+	}
+	else
+	{
+		valid_input = true;
 	}
 
 	if (valid_input == true)
 	{
-		strtok(input, "\n");
 		return (input);
 	}
 	else
 	{
 		printf("\n--Invalid input--\n");
 		free(input);
-		return (handle_user_input(message, possible_inputs, size));
+		return (handle_user_input(message, possible_inputs, size, check_input));
 	}
 }
 
@@ -167,7 +180,7 @@ char		*handle_int_user_input(char *message, int min, int max, int size)
 	char	*input;
 	int		input_int;
 
-	input = handle_user_input(message, (char[11]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'}, size);
+	input = handle_user_input(message, (char[11]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'}, size, true);
 	input_int = atoi(input);
 	if (input_int > max)
 	{
@@ -192,46 +205,47 @@ int			main(int argc, char *argv[])
 	char	*store_path;
 	char	*use_stored_path;
 	bool	use_strd_path_allctd;
+	bool	image_path_ready;
 	t_image image;
 
 	use_strd_path_allctd = false;
+	image_path_ready = false;
 
-	image_path = (char *)malloc(261 * sizeof(char));
 	if (image_path == NULL)
 	{
 		printf("\n--An error occurred--\n");
 		return (0);
 	}
-	image_path[0] = '\0';
 
 	if (argc == 2)
 	{
+		image_path = (char *)malloc(261 * sizeof(char));
 		for (int i = 0; argv[1][i]; i++)
 		{
 			image_path[i] = argv[1][i];
 			image_path[i + 1] = '\0';
 		}
+		image_path_ready = true;
 	}
 	else
 	{
 		get_stored_image_path(image_path);
 
-		if (image_path[0])
+		if (image_path_ready == true)
 		{
-			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3);
+			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
 			use_strd_path_allctd = true;
 			printf("\n\n");
 		}
 
-		if ((image_path[0] && use_stored_path[0] == 'n') || !image_path[0])
+		if ((image_path_ready == true && use_stored_path[0] == 'n') || image_path_ready == false)
 		{
-			printf("Enter image path: ");
-			fgets(image_path, 261, stdin);
-			strtok(image_path, "\n");
+			image_path = handle_user_input("Enter image path: ", "", 261, false);
+			image_path_ready = true;
 		}
 	}
 
-	if (image_path[0])
+	if (image_path_ready == true)
 	{
 		image.data = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
 		if (image.data != NULL)
@@ -239,7 +253,7 @@ int			main(int argc, char *argv[])
 			printf("\n\nImage loaded with success.\n\n\n");
 			if (use_strd_path_allctd == true && use_stored_path[0] == 'n')
 			{
-				store_path = handle_user_input("Store path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3);
+				store_path = handle_user_input("Store path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
 				store_path[0] == 'y' ? store_image_path(image_path) : 1;
 				printf("\n\n");
 				free(store_path);
@@ -273,6 +287,6 @@ int			main(int argc, char *argv[])
 	}
 
 	use_strd_path_allctd == true ? free(use_stored_path) : 1;
-	free(image_path);
+	image_path_ready == true ? free(image_path) : 1;
 	return (0);
 }
