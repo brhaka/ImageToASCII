@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-#include "image_reader.h"
+#include "image_to_ascii.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -72,7 +72,7 @@ void		convert_to_ascii(t_image image)
 				char_index > 9 ? char_index = 9 : 1;
 				char_index < 0 ? char_index = 0 : 1;
 				fprintf(fptr, "%c", map[char_index]);
-				*image.img++;
+				image.img++;
 			}
 			fprintf(fptr, "%c", '\n');
 			percentage = round((y + 1) / (image.height / 100));
