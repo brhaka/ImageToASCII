@@ -23,7 +23,7 @@ t_image		gray_image(t_image image)
 	gray_image.data = malloc(gray_img_size);
 	if (gray_image.data == NULL)
 	{
-		printf("Unable to allocate memory for gray image.\n");
+		printf("\n--An error occurred--\n\n");
 		return (image);
 	}
 
@@ -48,6 +48,13 @@ t_image		resize_image(t_image image, int resize_factor)
 	new_image.height = (image.height / resize_factor);
 	new_image.channels = image.channels;
 	new_image.data = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
+
+	if (new_image.data == NULL)
+	{
+		printf("\n--An error occurred--\n\n");
+		return (image);
+	}
+
 	stbir_resize_uint8(image.data, image.width, image.height, 0, new_image.data, new_image.width, new_image.height, 0, image.channels);
 
 	stbi_image_free(image.data);
@@ -121,6 +128,12 @@ char		*handle_user_input(char *message, char *possible_inputs, int size)
 
 	input = (char *)malloc(size * sizeof(char));
 
+	if (input == NULL)
+	{
+		printf("\n--An error occurred--\n\n");
+		return "";
+	}
+
 	printf("%s", message);
 	fgets(input, size, stdin);
 
@@ -143,7 +156,8 @@ char		*handle_user_input(char *message, char *possible_inputs, int size)
 	}
 	else
 	{
-		printf("Invalid input.\n");
+		printf("\n--Invalid input--\n\n");
+		free(input);
 		return (handle_user_input(message, possible_inputs, size));
 	}
 }
@@ -153,16 +167,16 @@ char		*handle_int_user_input(char *message, int min, int max, int size)
 	char	*input;
 	int		input_int;
 
-	input = handle_user_input(message, (char[10]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}, size);
+	input = handle_user_input(message, (char[11]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'}, size);
 	input_int = atoi(input);
 	if (input_int > max)
 	{
-		printf("Invalid input.\n");
+		printf("\n--Invalid input--\n\n");
 		return (handle_int_user_input(message, min, max, size));
 	}
 	else if (input_int < min)
 	{
-		printf("Invalid input.\n");
+		printf("\n--Invalid input--\n\n");
 		return (handle_int_user_input(message, min, max, size));
 	}
 	else
@@ -174,13 +188,17 @@ char		*handle_int_user_input(char *message, int min, int max, int size)
 int			main(int argc, char *argv[])
 {
 	char	*image_path;
-	char	*use_stored_path;
 	char	*resize_factor;
+	char	*use_stored_path;
+	char	*store_path;
 	t_image image;
 
-	resize_factor = (char *)malloc(12 * sizeof(char));
-	use_stored_path = (char *)malloc(3 * sizeof(char));
 	image_path = (char *)malloc(261 * sizeof(char));
+	if (image_path == NULL)
+	{
+		printf("\n--An error occurred--\n\n");
+		return (0);
+	}
 	image_path[0] = '\0';
 
 	if (argc == 2)
@@ -197,12 +215,12 @@ int			main(int argc, char *argv[])
 
 		if (image_path[0])
 		{
-			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[2]){'y', 'n'}, 3);
+			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3);
 		}
 
 		if (use_stored_path[0] == 'n' || !image_path[0])
 		{
-			printf("Enter image path: ");
+			printf("\n\nEnter image path: ");
 			fgets(image_path, 261, stdin);
 			strtok(image_path, "\n");
 		}
@@ -213,13 +231,20 @@ int			main(int argc, char *argv[])
 		image.data = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
 		if (image.data != NULL)
 		{
-			printf("\nImage loaded with success.\n\n");
-			store_image_path(image_path);
+			printf("\n\nImage loaded with success.\n\n\n");
+			if (use_stored_path[0] == 'n')
+			{
+				store_path = handle_user_input("Store path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3);
+				store_path[0] == 'y' ? store_image_path(image_path) : 1;
+				printf("\n\n");
+				free(store_path);
+			}
 
 			resize_factor = handle_int_user_input("Enter image resize factor: [1 - 10] ", 1, 10, 12);
 
 			printf("\n\nPreparing image...\n");
 			image = resize_image(image, atoi(resize_factor));
+			free(resize_factor);
 			image = gray_image(image);
 			printf("Image ready.\n\n");
 
@@ -229,17 +254,16 @@ int			main(int argc, char *argv[])
 		}
 		else
 		{
-			printf("Could not open specified image.\n");
+			printf("\n--Could not open specified image--\n\n");
 		}
 
 		stbi_image_free(image.data);
 	}
 	else
 	{
-		printf("Invalid path.\n");
+		printf("\n--Invalid path--\n\n");
 	}
 
-	free(resize_factor);
 	free(use_stored_path);
 	free(image_path);
 	return (0);
