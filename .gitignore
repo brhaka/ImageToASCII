@@ -8,3 +8,8 @@ ascii.brk
 *.jpg
 *.jpeg
 *.png
+*.tga
+*.bmp
+*.psd
+*.hdr
+*.pic
