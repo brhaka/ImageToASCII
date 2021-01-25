@@ -260,9 +260,10 @@ int			main(int argc, char *argv[])
 			use_strd_path_allctd = true;
 		}
 
-		if (use_stored_path[0] == 'n' || image_path_ready == false)
+		if ((use_strd_path_allctd == true && use_stored_path[0] == 'n') || image_path_ready == false)
 		{
 			use_strd_path_allctd == true ? printf("\n\n") : 1;
+			free(image_path);
 			image_path = handle_user_input("Enter image path: ", "", 261, false);
 			image_path_ready = true;
 		}
@@ -270,10 +271,14 @@ int			main(int argc, char *argv[])
 
 	if (image_path_ready == true)
 	{
+		printf("\n\nLoading image...\n");
+		printf("\r[ %d%% ]", 0);
+		fflush(stdout);
 		image.data = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
 		if (image.data != NULL)
 		{
-			printf("\n\nImage loaded with success.\n\n\n");
+			printf("\r[ %d%% ]", 100);
+			printf("\nImage loaded with success.\n\n\n");
 			if (use_strd_path_allctd == false || (use_strd_path_allctd == true && use_stored_path[0] != 'y'))
 			{
 				store_path = handle_user_input("Store path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
@@ -286,8 +291,10 @@ int			main(int argc, char *argv[])
 
 			printf("\n\nPreparing image...\n");
 			printf("\r[ %d%% ]", 0);
+			fflush(stdout);
 			image = resize_image(image, atoi(resize_factor));
 			printf("\r[ %d%% ]", 50);
+			fflush(stdout);
 			free(resize_factor);
 			image = gray_image(image);
 			printf("\r[ %d%% ]", 100);
