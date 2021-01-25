@@ -27,7 +27,7 @@ After downloading it, you can run it using the command line (`./ImageToASCII "./
 
 ## Features
 
-* Supports JPG, JPEG, PNG, TGA, BMP, PSD, GIF, HDR, PIC
+* Supports JPG, JPEG, PNG, TGA, BMP, PSD, HDR, PIC
 * Works with **any** image resolution
 * Clear and detailed ASCII arts
 * Lightweigth
