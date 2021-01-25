@@ -22,14 +22,14 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-[ImageToASCII]() is the only file you need to run the program.
-After downloading it, you can run it using the command line (`./ImageToASCII "./image.png"`).
+[ImageToASCII](https://github.com/brhaka/ImageToASCII/releases/download/1.0/ImageToASCII) is the only file you need to run the program.
+After downloading it, you can run it using the command-line (`./ImageToASCII "./image.png"`).
 
 ## Features
 
 * Supports JPG, JPEG, PNG, TGA, BMP, PSD, HDR, PIC
 * Works with **any** image resolution
-* Clear and detailed ASCII arts
+* Clean and detailed ASCII arts
 * Lightweigth
 
 ##### Please have in mind that the larger your ASCII art is, the more detailed it can be. It will be also heavier. E.g.: 1 character = 1 byte, so a 384x216 ASCII art weights 82.944 bytes PLUS whitespaces between columns.
