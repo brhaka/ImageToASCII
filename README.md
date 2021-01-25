@@ -23,7 +23,7 @@ Since the program has no control over which font the ASCII art is being visualiz
 ## Installation
 
 [ImageToASCII](https://github.com/brhaka/ImageToASCII/releases/download/1.0/ImageToASCII) is the only file you need to run the program.
-After downloading it, you can run it using the command line (`./ImageToASCII "./image.png"`).
+After downloading it, you can run it using the command-line (`./ImageToASCII "./image.png"`).
 
 ## Features
 
