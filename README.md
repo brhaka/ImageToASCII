@@ -16,7 +16,7 @@ Another input that `ImageToASCII` requires is the `Image Resize Factor`. You can
 
 There are also other inputs ImageToASCII will ask you, such as wether you want to store the path to the image for later use and also wether you want to use the stored path (if any).
 
-The ASCII art is saved to a file named `ascii.brk`. The extension is symbolic, but we can not write an ASCII art bigger 1000 pixels wide to .txt files. You can open the `.brk` file with [NotePad++](https://github.com/notepad-plus-plus/notepad-plus-plus) or your favorite text editor.
+The ASCII art is saved to a file named `ascii.brk`. The extension is symbolic, but since NotePad has a limit of 1024 characters per line, to avoid confusion, we do not save it to a .txt file. You can open the `.brk` file with [NotePad++](https://github.com/notepad-plus-plus/notepad-plus-plus) or your favorite text editor.
 
 Since the program has no control over which font the ASCII art is being visualized, a whitespace is inserted after each character. E.g.: '@' becomes '@ '
 
