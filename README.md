@@ -20,6 +20,8 @@ The ASCII art is saved to a file named `ascii.brk`. The extension is symbolic, b
 
 Since the program has no control over which font the ASCII art is being visualized, a whitespace is inserted after each character. E.g.: '@' becomes '@ '
 
+<sub>*Please have in mind that the larger your ASCII art is, the more detailed it can be. It will be also heavier. E.g.: 1 character = 1 byte, so a 384x216 ASCII art weights 82.944 bytes PLUS whitespaces between columns.*</sup>
+
 ## Installation
 
 [ImageToASCII](https://github.com/brhaka/ImageToASCII/releases/download/1.0/ImageToASCII) is the only file you need to run the program.
@@ -32,7 +34,9 @@ After downloading it, you can run it using the command-line (`./ImageToASCII "./
 * Clean and detailed ASCII arts
 * Lightweigth
 
-##### Please have in mind that the larger your ASCII art is, the more detailed it can be. It will be also heavier. E.g.: 1 character = 1 byte, so a 384x216 ASCII art weights 82.944 bytes PLUS whitespaces between columns.
+## Showcase
+
+![Lemur GIF](https://github.com/brhaka/ImageToASCII/blob/master/gif/lemur_demo.gif)
 
 ### Contributing
 **Like what you see?** Please, feel free to fork this repository, and make any change you like. If you
