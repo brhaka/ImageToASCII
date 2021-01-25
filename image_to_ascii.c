@@ -1,3 +1,14 @@
+/* »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+/* Author: Brhaka                   */
+/*                                  */
+/* Project: ImageToASCII            */
+/*                                  */
+/* File: image_to_ascii.c           */
+/*                                  */
+/*                                  */
+/*  github.com/brhaka/ImageToASCII  */
+/* «««««««««««««««««««««««««««««««« */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -70,7 +81,7 @@ void		convert_to_ascii(t_image image)
 	char	map[10] = "@#%xo;:,. ";
 	int		percentage;
 
-	fptr = fopen("ascii.txt", "w");
+	fptr = fopen("ascii.brk", "w");
 	if (fptr != NULL)
 	{
 		for (int y = 0; y < image.height; y++)
@@ -80,7 +91,7 @@ void		convert_to_ascii(t_image image)
 				char_index = (int)(*(image.data) / (255 / (sizeof(map) / sizeof(map[0]))));
 				char_index > 9 ? char_index = 9 : 1;
 				char_index < 0 ? char_index = 0 : 1;
-				fprintf(fptr, "%c ", map[char_index]);
+				fprintf(fptr, "%c%c", map[char_index], map[char_index]);
 				image.data++;
 			}
 			fprintf(fptr, "%c", '\n');

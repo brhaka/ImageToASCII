@@ -1,3 +1,14 @@
+/* »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+/* Author: Brhaka                   */
+/*                                  */
+/* Project: ImageToASCII            */
+/*                                  */
+/* File: image_to_ascii.h           */
+/*                                  */
+/*                                  */
+/*  github.com/brhaka/ImageToASCII  */
+/* «««««««««««««««««««««««««««««««« */
+
 #ifndef IMAGE_READER_H
 # define IMAGE_READER_H
 
