@@ -1,10 +1,9 @@
 # ImageToASCII
 
 [![License](https://img.shields.io/github/license/brhaka/ImageToASCII)](https://github.com/brhaka/ImageToASCII/blob/master/LICENSE)
-[![Size!](https://img.shields.io/github/repo-size/brhaka/ImageToASCII.svg)](https://github.com/brhaka/ImageToASCII)
+[![Size!](https://img.shields.io/github/languages/code-size/brhaka/ImageToASCII)](https://github.com/brhaka/ImageToASCII)
 
 [![GitHub stars](https://img.shields.io/github/stars/brhaka/ImageToASCII.svg?style=social&label=Star)](https://github.com/brhaka/ImageToASCII)
-[![GitHub forks](https://img.shields.io/github/forks/brhaka/ImageToASCII.svg?style=social&label=Fork)](https://github.com/brhaka/ImageToASCII)
 [![GitHub watch](https://img.shields.io/github/watchers/brhaka/ImageToASCII.svg?style=social&label=Watch)](https://github.com/brhaka/ImageToASCII)
 
 ## Usage
