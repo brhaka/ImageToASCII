@@ -4,7 +4,7 @@ NAME = ImageToASCII
 all:	$(NAME)
 
 $(NAME):
-	gcc -Wall -Wextra -Werror -lm $(SRCS) -o $(NAME)
+	gcc $(SRCS) -lm -o $(NAME)
 
 clean:
 	rm -f $(NAME)
