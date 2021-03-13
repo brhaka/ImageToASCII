@@ -9,8 +9,8 @@
 /*  github.com/brhaka/ImageToASCII  */
 /* «««««««««««««««««««««««««««««««« */
 
-#ifndef IMAGE_READER_H
-# define IMAGE_READER_H
+#ifndef IMAGE_TO_ASCII_H
+# define IMAGE_TO_ASCII_H
 
 typedef struct	s_image
 {
