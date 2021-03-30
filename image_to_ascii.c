@@ -1,13 +1,9 @@
-/* »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+/* ******************************** */
 /* Author: Brhaka                   */
-/*                                  */
-/* Project: ImageToASCII            */
-/*                                  */
-/* File: image_to_ascii.c           */
 /*                                  */
 /*                                  */
 /*  github.com/brhaka/ImageToASCII  */
-/* «««««««««««««««««««««««««««««««« */
+/* ******************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,14 +27,14 @@ t_image		gray_image(t_image image)
 	gray_image.channels = image.channels == 4 ? 2 : 1;
 	size_t gray_img_size = image.width * image.height * gray_image.channels;
 
-	gray_image.data = malloc(gray_img_size);
-	if (gray_image.data == NULL)
+	gray_image.img = malloc(gray_img_size);
+	if (gray_image.img == NULL)
 	{
 		printf("\n--An error occurred--\n");
 		return (image);
 	}
 
-	for (unsigned char *p = image.data, *pg = gray_image.data; p != image.data + img_size; p += image.channels, pg += gray_image.channels)
+	for (unsigned char *p = image.img, *pg = gray_image.img; p != image.img + img_size; p += image.channels, pg += gray_image.channels)
 	{
 		*pg = (uint8_t)((*p + *(p + 1) + *(p + 2)) / 3.0);
 		if (image.channels == 4)
@@ -46,7 +42,7 @@ t_image		gray_image(t_image image)
 			*(pg + 1) = *(p + 3);
 		}
 	}
-	stbi_image_free(image.data);
+	stbi_image_free(image.img);
 
 	return (gray_image);
 }
@@ -60,16 +56,16 @@ t_image		resize_image(t_image image, int resize_factor)
 	new_image.height = (image.height / resize_factor);
 	new_image.channels = image.channels;
 
-	new_image.data = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
-	if (new_image.data == NULL)
+	new_image.img = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
+	if (new_image.img == NULL)
 	{
 		printf("\n--An error occurred--\n");
 		return (image);
 	}
 
-	stbir_resize_uint8(image.data, image.width, image.height, 0, new_image.data, new_image.width, new_image.height, 0, image.channels);
+	stbir_resize_uint8(image.img, image.width, image.height, 0, new_image.img, new_image.width, new_image.height, 0, image.channels);
 
-	stbi_image_free(image.data);
+	stbi_image_free(image.img);
 
 	return (new_image);
 }
@@ -88,11 +84,11 @@ void		convert_to_ascii(t_image image)
 		{
 			for (int x = 0; x < image.width; x++)
 			{
-				char_index = (int)(*(image.data) / (255 / (sizeof(map) / sizeof(map[0]))));
+				char_index = (int)(*(image.img) / (255 / (sizeof(map) / sizeof(map[0]))));
 				char_index > 9 ? char_index = 9 : 1;
 				char_index < 0 ? char_index = 0 : 1;
 				fprintf(fptr, "%c%c", map[char_index], map[char_index]);
-				image.data++;
+				image.img++;
 			}
 			fprintf(fptr, "%c", '\n');
 			percentage = round((y + 1) / (image.height / 100.0));
@@ -274,8 +270,8 @@ int			main(int argc, char *argv[])
 		printf("\n\nLoading image...\n");
 		printf("\r[ %d%% ]", 0);
 		fflush(stdout);
-		image.data = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
-		if (image.data != NULL)
+		image.img = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
+		if (image.img != NULL)
 		{
 			printf("\r[ %d%% ]", 100);
 			printf("\nImage loaded with success.\n\n\n");
@@ -309,7 +305,7 @@ int			main(int argc, char *argv[])
 			printf("\n--Could not open specified image--\n");
 		}
 
-		stbi_image_free(image.data);
+		stbi_image_free(image.img);
 	}
 	else
 	{
