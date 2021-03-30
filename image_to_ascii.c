@@ -10,6 +10,11 @@
 #include <stdbool.h>
 #include <math.h>
 
+// 0 = UNIX (Linux && MacOS) ~~~ 1 = WIN
+#ifndef OS
+# define OS 0
+#endif
+
 #include "image_to_ascii.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -70,7 +75,7 @@ t_image		resize_image(t_image image, int resize_factor)
 	return (new_image);
 }
 
-void		convert_to_ascii(t_image image)
+void	convert_to_ascii(t_image image)
 {
 	FILE	*fptr = NULL;
 	int		char_index;
@@ -102,7 +107,7 @@ void		convert_to_ascii(t_image image)
 	}
 }
 
-void		get_stored_image_path(char *image_path)
+void	get_stored_image_path(char *image_path)
 {
 	FILE *fptr = NULL;
 
@@ -114,7 +119,7 @@ void		get_stored_image_path(char *image_path)
 	}
 }
 
-void		store_image_path(char *image_path)
+void	store_image_path(char *image_path)
 {
 	FILE *fptr = NULL;
 
@@ -130,7 +135,7 @@ void		store_image_path(char *image_path)
 	}
 }
 
-char		*handle_user_input(char *message, char *possible_inputs, int size, bool check_input)
+char	*handle_user_input(char *message, char *possible_inputs, int size, bool check_input)
 {
 	char	*input;
 	bool	valid_input;
@@ -183,7 +188,7 @@ char		*handle_user_input(char *message, char *possible_inputs, int size, bool ch
 	}
 }
 
-char		*handle_int_user_input(char *message, int min, int max, int size)
+char	*handle_int_user_input(char *message, int min, int max, int size)
 {
 	char	*input;
 	int		input_int;
@@ -206,7 +211,7 @@ char		*handle_int_user_input(char *message, int min, int max, int size)
 	}
 }
 
-int			main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	char	*image_path;
 	char	*resize_factor;
@@ -214,7 +219,7 @@ int			main(int argc, char *argv[])
 	char	*use_stored_path;
 	bool	use_strd_path_allctd;
 	bool	image_path_ready;
-	t_image image;
+	t_image	image;
 
 	use_strd_path_allctd = false;
 	image_path_ready = false;
