@@ -31,7 +31,7 @@ After downloading it, you can run it using the command-line (`./ImageToASCII "./
 * Supports JPG, JPEG, PNG, TGA, BMP, PSD, HDR, PIC
 * Works with **any** image resolution
 * Clean and detailed ASCII arts
-* Lightweigth
+* Lightweight
 
 ## Showcase
 
