@@ -37,7 +37,7 @@ After downloading it, you can run it using the command-line (`./ImageToASCII "./
 
 ![Lemur GIF](https://github.com/brhaka/ImageToASCII/blob/master/gif/lemur_demo.gif)
 
-### Contributing
+## Contributing
 **Like what you see?** Please, feel free to fork this repository, and make any change you like. If you
 want to propose a nice feature, please create a separate branch on your fork,
 named after the feature you want to implement, then make a pull request from that
