@@ -254,7 +254,7 @@ int		main(int argc, char *argv[])
 			image_path_ready = true;
 
 			char	possible_inputs[3] = "yn";
-			use_stored_path = handle_user_input(COLOR_CYAN "Use stored path?" COLOR_RESET " [y/n]: " COLOR_BLUE, possible_inputs, 3, true);
+			use_stored_path = handle_user_input(COLOR_CYAN "Use stored path?" COLOR_RESET " [y/n]: " COLOR_YELLOW, possible_inputs, 3, true);
 			use_strd_path_allctd = true;
 		}
 
@@ -262,7 +262,7 @@ int		main(int argc, char *argv[])
 		{
 			use_strd_path_allctd == true ? printf("\n\n") : 1;
 			free(image_path);
-			image_path = handle_user_input(COLOR_CYAN "Enter image path: " COLOR_BLUE, "", 261, false);
+			image_path = handle_user_input(COLOR_CYAN "Enter image path: " COLOR_YELLOW, "", 261, false);
 			image_path_ready = true;
 		}
 	}
@@ -280,13 +280,13 @@ int		main(int argc, char *argv[])
 			if (use_strd_path_allctd == false || (use_strd_path_allctd == true && use_stored_path[0] != 'y'))
 			{
 				char	possible_inputs[3] = "yn";
-				store_path = handle_user_input(COLOR_CYAN "Store path?" COLOR_RESET " [y/n]: " COLOR_BLUE, possible_inputs, 3, true);
+				store_path = handle_user_input(COLOR_CYAN "Store path?" COLOR_RESET " [y/n]: " COLOR_YELLOW, possible_inputs, 3, true);
 				store_path[0] == 'y' ? store_image_path(image_path) : (void)1;
 				printf("\n\n");
 				free(store_path);
 			}
 
-			resize_factor = handle_int_user_input(COLOR_CYAN "Enter image resize factor:" COLOR_RESET " [1 - 50] " COLOR_BLUE, 1, 50, 12);
+			resize_factor = handle_int_user_input(COLOR_CYAN "Enter image resize factor:" COLOR_RESET " [1 - 50] " COLOR_YELLOW, 1, 50, 12);
 
 			printf(COLOR_CYAN "\n\nPreparing image...\n" COLOR_RESET);
 			printf(COLOR_RESET "\r[ %d%% ]", 0);
