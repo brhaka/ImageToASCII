@@ -11,6 +11,7 @@ WIN:
 
 clean:
 	rm -f $(NAME)
+	rm -f $(NAME).exe
 
 re:		clean all
 
