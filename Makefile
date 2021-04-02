@@ -4,10 +4,10 @@ NAME = ImageToASCII
 all:	$(NAME)
 
 $(NAME):
-	gcc $(SRCS) -lm -D OS=0 -o $(NAME)
+	gcc $(SRCS) -lm -o $(NAME)
 
 WIN:
-	gcc $(SRCS) -lm -D OS=1 -o $(NAME)
+	i686-w64-mingw32-g++ $(SRCS) --static -o $(NAME)
 
 clean:
 	rm -f $(NAME)

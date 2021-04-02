@@ -10,11 +10,6 @@
 #include <stdbool.h>
 #include <math.h>
 
-// 0 = UNIX (Linux && MacOS) ~~~ 1 = WIN
-#ifndef OS
-# define OS 0
-#endif
-
 #include "image_to_ascii.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -32,7 +27,7 @@ t_image		gray_image(t_image image)
 	gray_image.channels = image.channels == 4 ? 2 : 1;
 	size_t gray_img_size = image.width * image.height * gray_image.channels;
 
-	gray_image.img = malloc(gray_img_size);
+	gray_image.img = (unsigned char *)malloc(gray_img_size);
 	if (gray_image.img == NULL)
 	{
 		printf("\n--An error occurred--\n");
@@ -79,7 +74,7 @@ void	convert_to_ascii(t_image image)
 {
 	FILE	*fptr = NULL;
 	int		char_index;
-	char	map[10] = "@#%xo;:,. ";
+	char	map[11] = "@#%xo;:,. ";
 	int		percentage;
 
 	fptr = fopen("ascii.brk", "w");
@@ -192,8 +187,9 @@ char	*handle_int_user_input(char *message, int min, int max, int size)
 {
 	char	*input;
 	int		input_int;
+	char	possible_inputs[11] = "0123456789";
 
-	input = handle_user_input(message, (char[11]){'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'}, size, true);
+	input = handle_user_input(message, possible_inputs, size, true);
 	input_int = atoi(input);
 	if (input_int > max)
 	{
@@ -257,7 +253,8 @@ int		main(int argc, char *argv[])
 		{
 			image_path_ready = true;
 
-			use_stored_path = handle_user_input("Use stored path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
+			char	possible_inputs[3] = "yn";
+			use_stored_path = handle_user_input(COLOR_RED "Use stored path? [y/n]: ", possible_inputs, 3, true);
 			use_strd_path_allctd = true;
 		}
 
@@ -282,8 +279,9 @@ int		main(int argc, char *argv[])
 			printf("\nImage loaded with success.\n\n\n");
 			if (use_strd_path_allctd == false || (use_strd_path_allctd == true && use_stored_path[0] != 'y'))
 			{
-				store_path = handle_user_input("Store path? [y/n]: ", (char[3]){'y', 'n', '\0'}, 3, true);
-				store_path[0] == 'y' ? store_image_path(image_path) : 1;
+				char	possible_inputs[3] = "yn";
+				store_path = handle_user_input("Store path? [y/n]: ", possible_inputs, 3, true);
+				store_path[0] == 'y' ? store_image_path(image_path) : (void)1;
 				printf("\n\n");
 				free(store_path);
 			}
@@ -317,8 +315,8 @@ int		main(int argc, char *argv[])
 		printf("\n--Invalid path--\n");
 	}
 
-	use_strd_path_allctd == true ? free(use_stored_path) : 1;
-	image_path_ready == true ? free(image_path) : 1;
+	use_strd_path_allctd == true ? free(use_stored_path) : (void)1;
+	image_path_ready == true ? free(image_path) : (void)1;
 
 	return (0);
 }

@@ -3,6 +3,7 @@ main
 a.out
 image_to_ascii
 ImageToASCII
+ImageToASCII.exe
 path.brk
 ascii.brk
 *.jpg
