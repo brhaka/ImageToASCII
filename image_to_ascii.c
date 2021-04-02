@@ -30,7 +30,7 @@ t_image		gray_image(t_image image)
 	gray_image.img = (unsigned char *)malloc(gray_img_size);
 	if (gray_image.img == NULL)
 	{
-		printf("\n--An error occurred--\n");
+		printf(ERROR_UNDEFINED);
 		return (image);
 	}
 
@@ -59,7 +59,7 @@ t_image		resize_image(t_image image, int resize_factor)
 	new_image.img = (unsigned char *)malloc((new_image.width * new_image.height * new_image.channels) * sizeof(unsigned char));
 	if (new_image.img == NULL)
 	{
-		printf("\n--An error occurred--\n");
+		printf(ERROR_UNDEFINED);
 		return (image);
 	}
 
@@ -138,7 +138,7 @@ char	*handle_user_input(char *message, char *possible_inputs, int size, bool che
 	input = (char *)malloc(size * sizeof(char));
 	if (input == NULL)
 	{
-		printf("\n--An error occurred--\n");
+		printf(ERROR_UNDEFINED);
 		return "";
 	}
 
@@ -146,7 +146,7 @@ char	*handle_user_input(char *message, char *possible_inputs, int size, bool che
 	fgets(input, size, stdin);
 	if (input[0] == '\n')
 	{
-		printf("\n--Invalid input--\n");
+		printf(ERROR_INVALID_INPUT);
 		free(input);
 		return (handle_user_input(message, possible_inputs, size, check_input));
 	}
@@ -177,7 +177,7 @@ char	*handle_user_input(char *message, char *possible_inputs, int size, bool che
 	}
 	else
 	{
-		printf("\n--Invalid input--\n");
+		printf(ERROR_INVALID_INPUT);
 		free(input);
 		return (handle_user_input(message, possible_inputs, size, check_input));
 	}
@@ -193,12 +193,12 @@ char	*handle_int_user_input(char *message, int min, int max, int size)
 	input_int = atoi(input);
 	if (input_int > max)
 	{
-		printf("\n--Invalid input--\n");
+		printf(ERROR_INVALID_INPUT);
 		return (handle_int_user_input(message, min, max, size));
 	}
 	else if (input_int < min)
 	{
-		printf("\n--Invalid input--\n");
+		printf(ERROR_INVALID_INPUT);
 		return (handle_int_user_input(message, min, max, size));
 	}
 	else
@@ -225,7 +225,7 @@ int		main(int argc, char *argv[])
 		image_path = (char *)malloc(261 * sizeof(char));
 		if (image_path == NULL)
 		{
-			printf("\n--An error occurred--\n");
+			printf(ERROR_UNDEFINED);
 			return (0);
 		}
 
@@ -242,7 +242,7 @@ int		main(int argc, char *argv[])
 		image_path = (char *)malloc(261 * sizeof(char));
 		if (image_path == NULL)
 		{
-			printf("\n--An error occurred--\n");
+			printf(ERROR_UNDEFINED);
 			return (0);
 		}
 		image_path[0] = '\0';
@@ -254,7 +254,7 @@ int		main(int argc, char *argv[])
 			image_path_ready = true;
 
 			char	possible_inputs[3] = "yn";
-			use_stored_path = handle_user_input(COLOR_RED "Use stored path? [y/n]: ", possible_inputs, 3, true);
+			use_stored_path = handle_user_input(COLOR_CYAN "Use stored path?" COLOR_RESET " [y/n]: " COLOR_BLUE, possible_inputs, 3, true);
 			use_strd_path_allctd = true;
 		}
 
@@ -262,57 +262,57 @@ int		main(int argc, char *argv[])
 		{
 			use_strd_path_allctd == true ? printf("\n\n") : 1;
 			free(image_path);
-			image_path = handle_user_input("Enter image path: ", "", 261, false);
+			image_path = handle_user_input(COLOR_CYAN "Enter image path: " COLOR_BLUE, "", 261, false);
 			image_path_ready = true;
 		}
 	}
 
 	if (image_path_ready == true)
 	{
-		printf("\n\nLoading image...\n");
-		printf("\r[ %d%% ]", 0);
+		printf(COLOR_CYAN "\n\nLoading image...\n" COLOR_RESET);
+		printf(COLOR_RESET "\r[ %d%% ]", 0);
 		fflush(stdout);
 		image.img = stbi_load(image_path, &image.width, &image.height, &image.channels, 0);
 		if (image.img != NULL)
 		{
-			printf("\r[ %d%% ]", 100);
-			printf("\nImage loaded with success.\n\n\n");
+			printf(COLOR_RESET "\r[ %d%% ]", 100);
+			printf(COLOR_GREEN "\nImage loaded with success.\n\n\n" COLOR_RESET);
 			if (use_strd_path_allctd == false || (use_strd_path_allctd == true && use_stored_path[0] != 'y'))
 			{
 				char	possible_inputs[3] = "yn";
-				store_path = handle_user_input("Store path? [y/n]: ", possible_inputs, 3, true);
+				store_path = handle_user_input(COLOR_CYAN "Store path?" COLOR_RESET " [y/n]: " COLOR_BLUE, possible_inputs, 3, true);
 				store_path[0] == 'y' ? store_image_path(image_path) : (void)1;
 				printf("\n\n");
 				free(store_path);
 			}
 
-			resize_factor = handle_int_user_input("Enter image resize factor: [1 - 50] ", 1, 50, 12);
+			resize_factor = handle_int_user_input(COLOR_CYAN "Enter image resize factor:" COLOR_RESET " [1 - 50] " COLOR_BLUE, 1, 50, 12);
 
-			printf("\n\nPreparing image...\n");
-			printf("\r[ %d%% ]", 0);
+			printf(COLOR_CYAN "\n\nPreparing image...\n" COLOR_RESET);
+			printf(COLOR_RESET "\r[ %d%% ]", 0);
 			fflush(stdout);
 			image = resize_image(image, atoi(resize_factor));
-			printf("\r[ %d%% ]", 50);
+			printf(COLOR_RESET "\r[ %d%% ]", 50);
 			fflush(stdout);
 			free(resize_factor);
 			image = gray_image(image);
-			printf("\r[ %d%% ]", 100);
-			printf("\nImage ready.\n\n");
+			printf(COLOR_RESET "\r[ %d%% ]", 100);
+			printf(COLOR_GREEN "\nImage ready.\n\n" COLOR_RESET);
 
-			printf("Converting image to ASCII...\n");
+			printf(COLOR_CYAN "Converting image to ASCII...\n" COLOR_RESET);
 			convert_to_ascii(image);
-			printf("Image successfully converted to ASCII.\n\n");
+			printf(COLOR_GREEN "Image successfully converted to ASCII.\n\n" COLOR_RESET);
 		}
 		else
 		{
-			printf("\n--Could not open specified image--\n");
+			printf(ERROR_OPEN_IMAGE);
 		}
 
 		stbi_image_free(image.img);
 	}
 	else
 	{
-		printf("\n--Invalid path--\n");
+		printf(ERROR_INVALID_PATH);
 	}
 
 	use_strd_path_allctd == true ? free(use_stored_path) : (void)1;
