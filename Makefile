@@ -1,23 +1,17 @@
 SRCS = ./image_to_ascii.c
 NAME = ImageToASCII
 
-all:	UNIX
+all:	$(NAME)
 
-$(NAME):	UNIX
-
-UNIX:
+$(NAME):
 	gcc $(SRCS) -lm -D OS=0 -o $(NAME)
-
-unix:	UNIX
 
 WIN:
 	gcc $(SRCS) -lm -D OS=1 -o $(NAME)
-
-win:	WIN
 
 clean:
 	rm -f $(NAME)
 
 re:		clean all
 
-.PHONY:	re clean all UNIX unix WIN win
+.PHONY:	re clean all WIN
