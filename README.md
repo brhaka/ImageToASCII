@@ -1,21 +1,21 @@
 # ImageToASCII
 
 [![License](https://img.shields.io/github/license/brhaka/ImageToASCII?style=for-the-badge)](https://github.com/brhaka/ImageToASCII/blob/master/LICENSE)
-[![Size](https://img.shields.io/github/languages/code-size/brhaka/ImageToASCII?style=for-the-badge)](https://github.com/brhaka/ImageToASCII)
 [![Release](https://img.shields.io/github/v/release/brhaka/ImageToASCII?color=%234DC820&style=for-the-badge)](https://github.com/brhaka/ImageToASCII)
+[![Size](https://img.shields.io/github/languages/code-size/brhaka/ImageToASCII?style=for-the-badge)](https://github.com/brhaka/ImageToASCII)
 
 [![GitHub stars](https://img.shields.io/github/stars/brhaka/ImageToASCII.svg?style=social&label=Star)](https://github.com/brhaka/ImageToASCII)
 
 ## Usage
 
 `ImageToASCII` runs on the Command-Line.
-You must provide a path to the image you want to convert. You can do this by passing it as a Command-Line Argument (`./ImageToASCII "./image.png"`). In the case where no argument is passed, ImageToASCII will prompt you to write the image path on the command-line.
+You must provide a path to the image you want to convert. You can do this by passing it as a Command-Line argument (`./ImageToASCII "./image.png"`). In the case where no argument is passed, ImageToASCII will prompt you to write the image path on the command-line.
 
 Another input that `ImageToASCII` requires is the `Image Resize Factor`. You can enter a value between `1` and `50`. The image will be resized according to the entered value. E.g.: With a resize factor of 10, a 3840x2160 (pixels) image becomes a 384x216 (characters) ASCII art.
 
 There are also other inputs ImageToASCII will ask you, such as wether you want to store the path to the image for later use and also wether you want to use the stored path (if previously stored).
 
-The ASCII art is saved to a file named `ascii.brk`. The extension is symbolic, but since NotePad has a limit of 1024 characters per line, to avoid confusion, we do not save it to a .txt file. You can open the `.brk` file with any text editor. Personally, I use [NotePad++](https://github.com/notepad-plus-plus/notepad-plus-plus).
+The ASCII art is saved to a file named `ascii.brk`. The extension is symbolic, but since NotePad has a limit of 1024 characters per line, to avoid confusion, it is not saved as a `.txt` file. You can open the `.brk` file with any text editor. Personally, I use [NotePad++](https://github.com/notepad-plus-plus/notepad-plus-plus).
 
 Since the program has no control over which font the ASCII art is being visualized, a whitespace is inserted after each character. E.g.: '@' becomes '@ '
 
@@ -23,7 +23,7 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-ImageToASCII is compiled to a single file, for easier use. If you want to run it on an UNIX OS, like **Linux** and **MacOS**, you should download the `ImageToASCII` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
+ImageToASCII is compiled to a single file, for easier use. If you want to run it on an **UNIX** Operating System, like **Linux** and **MacOS**, you should download the `ImageToASCII` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
 
 To start the program, all you need to do is execute it via command-line: (`./ImageToASCII "./image.png"`) or (`./ImageToASCII.exe "./image.png"`).
 
@@ -50,6 +50,7 @@ To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0
 * Clean and detailed ASCII arts
 * **UNIX** and **Windows** versions
 * Lightweight
+* Open Source
 
 ## Showcase
 
