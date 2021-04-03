@@ -51,7 +51,10 @@ The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile 
 
 ## Showcase
 
-![Girl-Hills](https://user-images.githubusercontent.com/32342284/113485388-1fdca280-94a5-11eb-8fd4-a07b939cd31b.jpg)
+![Beliaikin_Final](https://user-images.githubusercontent.com/32342284/113486110-00477900-94a9-11eb-82f8-b0927eb04f75.jpg)
+![Deer_Final](https://user-images.githubusercontent.com/32342284/113486115-03426980-94a9-11eb-9d07-807445e3e608.jpg)
+![Hills_Final](https://user-images.githubusercontent.com/32342284/113486120-05a4c380-94a9-11eb-8edd-a9513ed0a3c4.jpg)
+![Girl_Leaf_Final](https://user-images.githubusercontent.com/32342284/113486149-2c62fa00-94a9-11eb-97b7-dc0f6fe1f12f.jpg)
 
 ## Contributing
 **Like what you see?** Please, feel free to fork this repository, and make any change you like. If you
