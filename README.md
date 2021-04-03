@@ -51,7 +51,7 @@ The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile 
 
 ## Showcase
 
-![Lemur GIF](https://github.com/brhaka/ImageToASCII/blob/master/gif/lemur_demo.gif)
+![Girl-Hills](https://user-images.githubusercontent.com/32342284/113485388-1fdca280-94a5-11eb-8fd4-a07b939cd31b.jpg)
 
 ## Contributing
 **Like what you see?** Please, feel free to fork this repository, and make any change you like. If you
