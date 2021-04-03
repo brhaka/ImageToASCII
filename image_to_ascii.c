@@ -11,6 +11,8 @@
 #include <math.h>
 
 #include "image_to_ascii.h"
+#include "colors.h"
+#include "errors.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
