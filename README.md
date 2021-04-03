@@ -31,7 +31,7 @@ To start the program, all you need to do is execute it via command-line: (`./Ima
 
 The **[master](https://github.com/brhaka/ImageToASCII/tree/master)** branch contains the most recent stable release source code. The **[development](https://github.com/brhaka/ImageToASCII/tree/development)** branch contains the current development source code. It may be unstable.
 
-### Compilation
+### Compiling
 
 It's also possible to download the source code and compile it yourself. First, you must clone or fork this repository into an empty directory. Then, via command-line, you can run the following commands:
 
@@ -40,6 +40,8 @@ It's also possible to download the source code and compile it yourself. First, y
 `make WIN` will compile the **Windows** (x64 and x86) version of the program. The output file is named `ImageToASCII.exe`. This command uses **mingw**.
 
 The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile both **UNIX** and **Windows** versions of the program.
+
+To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0` to your `make *` command. E.g: `make WIN USE_COLORS=0`
 
 ## Features
 
