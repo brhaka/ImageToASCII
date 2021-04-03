@@ -27,6 +27,10 @@ ImageToASCII is compiled to a single file, for easier use. If you want to run it
 
 To start the program, all you need to do is execute it via command-line: (`./ImageToASCII "./image.png"`) or (`./ImageToASCII.exe "./image.png"`).
 
+### Branches
+
+The **[master](https://github.com/brhaka/ImageToASCII/tree/master)** branch contains the most recent stable release source code. The **[development](https://github.com/brhaka/ImageToASCII/tree/development)** branch contains the current development source code. It may be unstable.
+
 ### Compilation
 
 It's also possible to download the source code and compile it yourself. First, you must clone or fork this repository into an empty directory. Then, via command-line, you can run the following commands:
