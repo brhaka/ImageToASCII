@@ -52,9 +52,9 @@ The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile 
 ## Showcase
 
 ![Beliaikin](https://user-images.githubusercontent.com/32342284/113486110-00477900-94a9-11eb-82f8-b0927eb04f75.jpg)
-![Antelope](https://user-images.githubusercontent.com/32342284/113486115-03426980-94a9-11eb-9d07-807445e3e608.jpg)
+![Antelope Close-Up](https://user-images.githubusercontent.com/32342284/113486115-03426980-94a9-11eb-9d07-807445e3e608.jpg)
 ![Leitisvatn](https://user-images.githubusercontent.com/32342284/113486120-05a4c380-94a9-11eb-8edd-a9513ed0a3c4.jpg)
-![Girl Holding Leaf](https://user-images.githubusercontent.com/32342284/113486149-2c62fa00-94a9-11eb-97b7-dc0f6fe1f12f.jpg)
+![Girl Holding Leaf](https://user-images.githubusercontent.com/32342284/113486484-06d6f000-94ab-11eb-9cda-6aa50a31dc41.jpg)
 
 *Images by [pexels.com](https://www.pexels.com/collections/imagetoascii-vk9vgay/) and [Eirik Sørstrømmen](https://500px.com/photo/122484453/the-cliffs-of-leitisvatn-by-eirik-sorstrommen)*
 
