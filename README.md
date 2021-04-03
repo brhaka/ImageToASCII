@@ -23,14 +23,26 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-[ImageToASCII](https://github.com/brhaka/ImageToASCII/releases/download/1.0/ImageToASCII) is the only file you need to run the program.
-After downloading it, you can run it using the command-line (`./ImageToASCII "./image.png"`).
+ImageToASCII is compiled to a single file, for easier use. If you want to run it on an UNIX OS, like **Linux** and **MacOS**, you should download the `ImageToASCII` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
+
+To start the program, all you need to do is execute it via command-line: (`./ImageToASCII "./image.png"`) or (`./ImageToASCII.exe "./image.png"`).
+
+### Compilation
+
+It's also possible to download the source code and compile it yourself. First, you must clone or fork this repository into an empty directory. Then, via command-line, you can run the following commands:
+
+`make UNIX` will compile the **UNIX** version of the program. The output file is named `ImageToASCII`. This command uses `gcc`.
+
+`make WIN` will compile the **Windows** (x64 and x86) version of the program. The output file is named `ImageToASCII.exe`. This command uses **mingw**.
+
+The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile both **UNIX** and **Windows** versions of the program.
 
 ## Features
 
 * Supports JPG, JPEG, PNG, TGA, BMP, PSD, HDR, PIC
 * Works with **any** image resolution
 * Clean and detailed ASCII arts
+* **UNIX** and **Windows** versions
 * Lightweight
 
 ## Showcase
