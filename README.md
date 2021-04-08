@@ -23,7 +23,7 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-ImageToASCII is compiled to a single file, for easier use. If you want to run it on an **UNIX** Operating System, like **Linux** and **MacOS**, you should download the `ImageToASCII` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
+ImageToASCII is compiled to a single file, for easier use. If you want to run it on an **UNIX** Operating System, like **Linux** and **MacOS**, you should download the `ImageToASCII-Linux` or `ImageToASCII-MacOS` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII-Windows_x86_x64.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
 
 To start the program, all you need to do is execute it via command-line: (`./ImageToASCII "./image.png"`) or (`./ImageToASCII.exe "./image.png"`).
 
@@ -35,7 +35,7 @@ The **[master](https://github.com/brhaka/ImageToASCII/tree/master)** branch cont
 
 It's also possible to download the source code and compile it yourself. First, you must clone or fork this repository into an empty directory. Then, via command-line, you can run the following commands:
 
-`make UNIX` will compile the **UNIX** version of the program. The output file is named `ImageToASCII`. This command uses `gcc`.
+`make UNIX` will compile the **UNIX** version of the program. The output file is named `ImageToASCII`. This command uses `gcc`. In order to execute it on Linux, it must be compiled on **Linux** and in order to execute it on MacOS, it must be compiled on **MacOS**.
 
 `make WIN` will compile the **Windows** (x64 and x86) version of the program. The output file is named `ImageToASCII.exe`. This command uses **mingw**.
 
@@ -48,7 +48,7 @@ To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0
 * Supports JPG, JPEG, PNG, TGA, BMP, PSD, HDR, PIC
 * Works with **any** image resolution
 * Clean and detailed ASCII arts
-* **UNIX** and **Windows** versions
+* **Linux**, **MacOS** and **Windows** versions
 * Lightweight
 * Open Source
 
