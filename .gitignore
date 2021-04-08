@@ -4,6 +4,8 @@ a.out
 image_to_ascii
 ImageToASCII
 ImageToASCII.exe
+ImageToASCII_NoColors
+ImageToASCII_NoColors.exe
 path.brk
 ascii.brk
 *.jpg
