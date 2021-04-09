@@ -1,9 +1,9 @@
-/* ******************************** */
-/* Author: Brhaka                   */
-/*                                  */
-/*                                  */
-/*  github.com/brhaka/ImageToASCII  */
-/* ******************************** */
+# ******************************** #
+# Author: Brhaka                   #
+#                                  #
+#                                  #
+#  github.com/brhaka/ImageToASCII  #
+# ******************************** #
 
 SRCS := ./image_to_ascii.c
 NAME := ImageToASCII
