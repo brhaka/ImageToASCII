@@ -54,10 +54,17 @@ To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0
 
 ## Showcase
 
-![Beliaikin](https://user-images.githubusercontent.com/32342284/113486110-00477900-94a9-11eb-82f8-b0927eb04f75.jpg)
-![Antelope Close-Up](https://user-images.githubusercontent.com/32342284/113486115-03426980-94a9-11eb-9d07-807445e3e608.jpg)
-![Leitisvatn](https://user-images.githubusercontent.com/32342284/113486120-05a4c380-94a9-11eb-8edd-a9513ed0a3c4.jpg)
-![Girl Holding Leaf](https://user-images.githubusercontent.com/32342284/113486484-06d6f000-94ab-11eb-9cda-6aa50a31dc41.jpg)
+### High character count
+
+![Beliaikin](https://user-images.githubusercontent.com/32342284/114232473-d7752700-9973-11eb-9889-dc30f1bb69d8.jpg)
+![Antelope Close-Up](https://user-images.githubusercontent.com/32342284/114233077-b2cd7f00-9974-11eb-932e-b95f23102268.jpg)
+![Leitisvatn](https://user-images.githubusercontent.com/32342284/114232421-c5938400-9973-11eb-8f8b-ac16a543ade0.jpg)
+![Girl Holding Leaf](https://user-images.githubusercontent.com/32342284/114232397-b90f2b80-9973-11eb-9958-1dd4f8296875.jpg)
+
+### Low character count
+
+![Pear Low](https://user-images.githubusercontent.com/32342284/114232801-5d916d80-9974-11eb-88f5-a94218a8a622.jpg)
+![Antelope Close-Up Low](https://user-images.githubusercontent.com/32342284/114232569-f673b900-9973-11eb-874c-675369ebe6ea.jpg)
 
 *Images by [pexels.com](https://www.pexels.com/collections/imagetoascii-vk9vgay/) and [Eirik Sørstrømmen](https://500px.com/photo/122484453/the-cliffs-of-leitisvatn-by-eirik-sorstrommen)*
 
