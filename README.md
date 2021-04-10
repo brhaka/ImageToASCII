@@ -23,9 +23,9 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-ImageToASCII is compiled to a single file, for easier use. If you want to run it on an **UNIX** Operating System, like **Linux** and **MacOS**, you should download the `ImageToASCII-Linux` or `ImageToASCII-MacOS` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII-Windows_x86_x64.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
+ImageToASCII is compiled to a single file, for easier use. There is a specific file for each OS version. If you wish to use ImageToASCII on Linux, download the **ImageToASCII-Linux** file. On MacOS, download the **ImageToASCII-MacOS** file and on Windows, download the **ImageToASCII-Windows_x86_x64.exe** file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
 
-To start the program, all you need to do is execute it via command-line: (`./ImageToASCII "./image.png"`) or (`./ImageToASCII.exe "./image.png"`).
+To start the program, all you need to do is execute it via command-line. E.g: `./ImageToASCII-Linux "./image.png"`
 
 ### Branches
 
@@ -35,11 +35,11 @@ The **[master](https://github.com/brhaka/ImageToASCII/tree/master)** branch cont
 
 It's also possible to download the source code and compile it yourself. First, you must clone or fork this repository into an empty directory. Then, via command-line, you can run the following commands:
 
-`make UNIX` will compile the **UNIX** version of the program. The output file is named `ImageToASCII`. This command uses `gcc`. In order to execute it on Linux, it must be compiled on **Linux** and in order to execute it on MacOS, it must be compiled on **MacOS**.
+`make LINUX` and `make MACOS` will compile the **Linux** and **MacOS** versions of the program. The output files are named `ImageToASCII-Linux` and `ImageToASCII-MacOS`, respectively. This command uses `gcc`. In order to execute it on Linux, it must be compiled on **Linux** and the same rule is applied to **MacOS**.
 
-`make WIN` will compile the **Windows** (x64 and x86) version of the program. The output file is named `ImageToASCII.exe`. This command uses **mingw**.
+`make WIN` will compile the **Windows** (x86 and x64) version of the program. The output file is named `ImageToASCII-Windows_x86_x64.exe`. This command uses **mingw**.
 
-The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile both **UNIX** and **Windows** versions of the program.
+The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile the **Linux**, **MacOS** and **Windows** versions of the program.
 
 To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0` to your `make *` command. E.g: `make WIN USE_COLORS=0`
 
