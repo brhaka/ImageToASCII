@@ -23,9 +23,9 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-ImageToASCII is compiled to a single file, for easier use. If you want to run it on an **UNIX** Operating System, like **Linux** and **MacOS**, you should download the `ImageToASCII` file. In case you want to run it on **Windows** x64 or x86, download the `ImageToASCII.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
+ImageToASCII is compiled to a single file, for easier use. There is a specific file for each OS version. If you wish to use ImageToASCII on **Linux**, download the `ImageToASCII-Linux` file. On **MacOS**, download the `ImageToASCII-MacOS` file and on **Windows**, download the `ImageToASCII-Windows_x86_x64.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section. It's also possible to [compile the source code](https://github.com/brhaka/ImageToASCII#compiling).
 
-To start the program, all you need to do is execute it via command-line: (`./ImageToASCII "./image.png"`) or (`./ImageToASCII.exe "./image.png"`).
+To start the program, all you need to do is execute it via command-line. E.g: `./ImageToASCII-Linux "./image.png"`
 
 ### Branches
 
@@ -35,11 +35,11 @@ The **[master](https://github.com/brhaka/ImageToASCII/tree/master)** branch cont
 
 It's also possible to download the source code and compile it yourself. First, you must clone or fork this repository into an empty directory. Then, via command-line, you can run the following commands:
 
-`make UNIX` will compile the **UNIX** version of the program. The output file is named `ImageToASCII`. This command uses `gcc`.
+`make LINUX` and `make MACOS` will compile the **Linux** and **MacOS** versions of the program. The output files are named `ImageToASCII-Linux` and `ImageToASCII-MacOS`, respectively. This command uses `gcc`. In order to execute it on Linux, it must be compiled on **Linux** and the same rule is applied to **MacOS**.
 
-`make WIN` will compile the **Windows** (x64 and x86) version of the program. The output file is named `ImageToASCII.exe`. This command uses **mingw**.
+`make WIN` will compile the **Windows** (x86 and x64) version of the program. The output file is named `ImageToASCII-Windows_x86_x64.exe`. This command uses **mingw**.
 
-The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile both **UNIX** and **Windows** versions of the program.
+The `make`, `make all`, `make re` and `make ImageToASCII` commands will compile the **Linux**, **MacOS** and **Windows** versions of the program.
 
 To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0` to your `make *` command. E.g: `make WIN USE_COLORS=0`
 
@@ -48,16 +48,23 @@ To compile a version that won't use ANSI colors on the output, add `USE_COLORS=0
 * Supports JPG, JPEG, PNG, TGA, BMP, PSD, HDR, PIC
 * Works with **any** image resolution
 * Clean and detailed ASCII arts
-* **UNIX** and **Windows** versions
+* **Linux**, **MacOS** and **Windows** versions
 * Lightweight
 * Open Source
 
 ## Showcase
 
-![Beliaikin](https://user-images.githubusercontent.com/32342284/113486110-00477900-94a9-11eb-82f8-b0927eb04f75.jpg)
-![Antelope Close-Up](https://user-images.githubusercontent.com/32342284/113486115-03426980-94a9-11eb-9d07-807445e3e608.jpg)
-![Leitisvatn](https://user-images.githubusercontent.com/32342284/113486120-05a4c380-94a9-11eb-8edd-a9513ed0a3c4.jpg)
-![Girl Holding Leaf](https://user-images.githubusercontent.com/32342284/113486484-06d6f000-94ab-11eb-9cda-6aa50a31dc41.jpg)
+### High character count
+
+![Beliaikin](https://user-images.githubusercontent.com/32342284/114232473-d7752700-9973-11eb-9889-dc30f1bb69d8.jpg)
+![Antelope Close-Up](https://user-images.githubusercontent.com/32342284/114233077-b2cd7f00-9974-11eb-932e-b95f23102268.jpg)
+![Leitisvatn](https://user-images.githubusercontent.com/32342284/114232421-c5938400-9973-11eb-8f8b-ac16a543ade0.jpg)
+![Girl Holding Leaf](https://user-images.githubusercontent.com/32342284/114232397-b90f2b80-9973-11eb-9958-1dd4f8296875.jpg)
+
+### Low character count
+
+![Pear Low](https://user-images.githubusercontent.com/32342284/114232801-5d916d80-9974-11eb-88f5-a94218a8a622.jpg)
+![Antelope Close-Up Low](https://user-images.githubusercontent.com/32342284/114232569-f673b900-9973-11eb-874c-675369ebe6ea.jpg)
 
 *Images by [pexels.com](https://www.pexels.com/collections/imagetoascii-vk9vgay/) and [Eirik Sørstrømmen](https://500px.com/photo/122484453/the-cliffs-of-leitisvatn-by-eirik-sorstrommen)*
 
