@@ -23,7 +23,7 @@ Since the program has no control over which font the ASCII art is being visualiz
 
 ## Installation
 
-ImageToASCII is compiled to a single file, for easier use. There is a specific file for each OS version. If you wish to use ImageToASCII on Linux, download the **ImageToASCII-Linux** file. On MacOS, download the **ImageToASCII-MacOS** file and on Windows, download the **ImageToASCII-Windows_x86_x64.exe** file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section.
+ImageToASCII is compiled to a single file, for easier use. There is a specific file for each OS version. If you wish to use ImageToASCII on **Linux**, download the `ImageToASCII-Linux` file. On **MacOS**, download the `ImageToASCII-MacOS` file and on **Windows**, download the `ImageToASCII-Windows_x86_x64.exe` file. You can start your download at the [Releases](https://github.com/brhaka/ImageToASCII/releases) section. It's also possible to [compile the source code](https://github.com/brhaka/ImageToASCII#compiling).
 
 To start the program, all you need to do is execute it via command-line. E.g: `./ImageToASCII-Linux "./image.png"`
 
